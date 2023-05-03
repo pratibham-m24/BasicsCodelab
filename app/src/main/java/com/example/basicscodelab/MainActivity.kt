@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.basicscodelab.ui.theme.BasicsCodelabTheme
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
@@ -37,20 +38,74 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import com.codelab.basiclayouts.ui.theme.MySootheTheme
+import com.example.basicstatecodelab.WellnessScreen
+import com.example.basicstatecodelab.ui.theme.BasicStateCodelabTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            //setting the theme to be used
-            BasicsCodelabTheme {
-                // First composable
-                MyApp(Modifier.fillMaxSize())
-            }
+            MainApp()
         }
     }
 }
 
+@Composable
+fun MainApp(
+    modifier: Modifier = Modifier
+) {
+    //rememberSaveable is used to save the state even after any configuration change
+    var appOptions by rememberSaveable { mutableStateOf(0) }
+    when(appOptions) {
+        0 ->  Column(
+            modifier = modifier,
+            // arranges in the main axis(y-axis)
+            verticalArrangement = Arrangement.Center,
+            // aligns the components in the other axis(x-axis)
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Button(
+                modifier = Modifier.padding(vertical = 24.dp),
+                onClick = { appOptions = 1 }
+            ) {
+                Text("First App")
+            }
+            Button(
+                modifier = Modifier.padding(vertical = 24.dp),
+                onClick = { appOptions = 2 }
+            ) {
+                Text("Second App")
+            }
+            Button(
+                modifier = Modifier.padding(vertical = 24.dp),
+                onClick = { appOptions = 3 }
+            ) {
+                Text("Third App")
+            }
+        }
+
+        1 -> BasicsCodelabTheme {
+            // First composable
+            MyApp(Modifier.fillMaxSize())
+        }
+
+        2 -> MySootheTheme {
+            Scaffold(bottomBar = { SootheBottomNavigation() }) {
+                HomeScreen(Modifier.padding(it))
+            }
+        }
+        3 -> BasicStateCodelabTheme {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                WellnessScreen()
+            }
+        }
+    }
+
+    }
 /*
 This composable stores a state called shouldShowOnboarding. Any change in the
 value of this state results in recomposition.
