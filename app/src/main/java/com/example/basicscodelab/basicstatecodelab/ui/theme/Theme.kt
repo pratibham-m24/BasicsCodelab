@@ -1,4 +1,4 @@
-package com.example.basicstatecodelab.ui.theme
+package com.example.basicscodelab.basicstatecodelab.ui.theme
 
 import android.app.Activity
 import android.os.Build

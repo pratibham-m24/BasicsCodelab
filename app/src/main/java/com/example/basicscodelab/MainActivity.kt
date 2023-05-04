@@ -38,9 +38,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import com.codelab.basiclayouts.ui.theme.MySootheTheme
-import com.example.basicstatecodelab.WellnessScreen
-import com.example.basicstatecodelab.ui.theme.BasicStateCodelabTheme
+import com.example.basicscodelab.sootheapp.theme.MySootheTheme
+import com.example.basicscodelab.animation.ui.AnimationCodelabTheme
+import com.example.basicscodelab.animation.ui.home.Home
+import com.example.basicscodelab.basicstatecodelab.WellnessScreen
+import com.example.basicscodelab.basicstatecodelab.ui.theme.BasicStateCodelabTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +85,12 @@ fun MainApp(
             ) {
                 Text("Third App")
             }
+            Button(
+                modifier = Modifier.padding(vertical = 24.dp),
+                onClick = { appOptions = 4 }
+            ) {
+                Text("Animation App")
+            }
         }
 
         1 -> BasicsCodelabTheme {
@@ -102,6 +110,9 @@ fun MainApp(
             ) {
                 WellnessScreen()
             }
+        }
+        4 -> AnimationCodelabTheme {
+            Home()
         }
     }
 

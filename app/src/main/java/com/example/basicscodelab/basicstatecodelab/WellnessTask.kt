@@ -1,4 +1,4 @@
-package com.example.basicstatecodelab
+package com.example.basicscodelab.basicstatecodelab
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

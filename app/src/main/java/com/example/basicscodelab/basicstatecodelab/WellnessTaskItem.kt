@@ -1,4 +1,4 @@
-package com.example.basicstatecodelab
+package com.example.basicscodelab.basicstatecodelab
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
