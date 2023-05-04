@@ -1,5 +1,6 @@
 package com.example.basicscodelab.ui.theme
 
+import androidx.compose.material.darkColors
 import androidx.compose.ui.graphics.Color
 
 val Purple80 = Color(0xFFD0BCFF)
@@ -14,3 +15,15 @@ val Navy = Color(0xFF073042)
 val Blue = Color(0xFF4285F4)
 val LightBlue = Color(0xFFD7EFFE)
 val Chartreuse = Color(0xFFEFF7CF)
+
+val Green500 = Color(0xFF1EB980)
+val DarkBlue900 = Color(0xFF26282F)
+
+// Rally is always dark themed.
+val ColorPalette = darkColors(
+    primary = Green500,
+    surface = DarkBlue900,
+    onSurface = Color.White,
+    background = DarkBlue900,
+    onBackground = Color.White
+)

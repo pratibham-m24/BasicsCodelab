@@ -1,5 +1,6 @@
 package com.example.basicscodelab
 
+import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -35,7 +36,13 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import com.example.basicscodelab.crane.details.launchDetailsActivity
+import androidx.compose.samples.crane.home.CraneHome
+import androidx.compose.samples.crane.home.LandingScreen
+import androidx.compose.samples.crane.home.OnExploreItemClicked
+import androidx.compose.samples.crane.ui.CraneTheme
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.basicscodelab.sootheapp.theme.MySootheTheme
@@ -43,19 +50,22 @@ import com.example.basicscodelab.animation.ui.AnimationCodelabTheme
 import com.example.basicscodelab.animation.ui.home.Home
 import com.example.basicscodelab.basicstatecodelab.WellnessScreen
 import com.example.basicscodelab.basicstatecodelab.ui.theme.BasicStateCodelabTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainApp()
+            MainApp(context = this)
         }
     }
 }
 
 @Composable
 fun MainApp(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    context: Context
 ) {
     //rememberSaveable is used to save the state even after any configuration change
     var appOptions by rememberSaveable { mutableStateOf(0) }
@@ -91,6 +101,19 @@ fun MainApp(
             ) {
                 Text("Animation App")
             }
+            Button(
+                modifier = Modifier.padding(vertical = 24.dp),
+                onClick = { appOptions = 5 }
+            ) {
+                Text("Crane App")
+            }
+
+            Button(
+                modifier = Modifier.padding(vertical = 24.dp),
+                onClick = { appOptions = 6 }
+            ) {
+                Text("Rally App")
+            }
         }
 
         1 -> BasicsCodelabTheme {
@@ -114,6 +137,15 @@ fun MainApp(
         4 -> AnimationCodelabTheme {
             Home()
         }
+        5 -> CraneTheme {
+            MainScreen(onExploreItemClicked = {
+                launchDetailsActivity(
+                    context = context,
+                    item = it
+                )
+            })
+        }
+        6 -> RallyApp()
     }
 
     }
@@ -268,5 +300,17 @@ fun OnboardingScreen(onContinueClicked: () -> Unit, modifier: Modifier = Modifie
 fun OnboardingPreview() {
     BasicsCodelabTheme {
         OnboardingScreen(onContinueClicked = {})
+    }
+}
+
+@Composable
+private fun MainScreen(onExploreItemClicked: OnExploreItemClicked) {
+    androidx.compose.material.Surface(color = androidx.compose.material.MaterialTheme.colors.primary) {
+        var showLandingScreen by remember { mutableStateOf(true) }
+        if (showLandingScreen) {
+            LandingScreen(onTimeout = { showLandingScreen = false })
+        } else {
+            CraneHome(onExploreItemClicked = onExploreItemClicked)
+        }
     }
 }
