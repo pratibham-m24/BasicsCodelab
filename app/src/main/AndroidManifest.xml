@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+   <!-- Add while running for wear os
+    <uses-feature android:name="android.hardware.type.watch" /> -->
+
     <application
         android:name=".CraneApplication"
         android:allowBackup="true"
@@ -13,9 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BasicsCodelab"
         tools:targetApi="31">
+
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
