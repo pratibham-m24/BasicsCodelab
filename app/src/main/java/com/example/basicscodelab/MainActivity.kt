@@ -50,7 +50,9 @@ import com.example.basicscodelab.animation.ui.AnimationCodelabTheme
 import com.example.basicscodelab.animation.ui.home.Home
 import com.example.basicscodelab.basicstatecodelab.WellnessScreen
 import com.example.basicscodelab.basicstatecodelab.ui.theme.BasicStateCodelabTheme
+import com.example.jetnews.data.AppContainerImpl
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.internal.Contexts.getApplication
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -114,6 +116,13 @@ fun MainApp(
             ) {
                 Text("Rally App")
             }
+
+            Button(
+                modifier = Modifier.padding(vertical = 24.dp),
+                onClick = { appOptions = 7 }
+            ) {
+                Text("Jet news App")
+            }
         }
 
         1 -> BasicsCodelabTheme {
@@ -146,6 +155,9 @@ fun MainApp(
             })
         }
         6 -> RallyApp()
+        7 -> {
+            JetnewsApp(AppContainerImpl(context))
+        }
     }
 
     }
