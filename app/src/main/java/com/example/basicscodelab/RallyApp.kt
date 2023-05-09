@@ -69,7 +69,7 @@ fun RallyApp() {
         // Added additional logic to get singleAccountscreen correct route
         val currentScreen =
             rallyTabRowScreens.find {
-                it.route == currentDestination?.route
+                it.route == currentDestination?.route?.split("/")?.get(0)
             } ?: Overview
         Scaffold(
             topBar = {
@@ -77,7 +77,7 @@ fun RallyApp() {
                     allScreens = rallyTabRowScreens,
                     onTabSelected = { screen ->
                         // single top is used to have one copy in backstack
-                        navController.navigateSingleTopTo(screen.route)
+                        navController.navigateSingleTopTo(if(screen == SingleAccount) "${screen.route}/Checking" else screen.route)
                     },
                     currentScreen = currentScreen
                 )
@@ -142,13 +142,8 @@ fun NavHostController.navigateSingleTopTo(route: String) =
         // when back button is pressed, it clears the backstack and shows the starting screen
         popUpTo(
             this@navigateSingleTopTo.graph.findStartDestination().id
-        ) {
-            // save screen state
-            saveState = true
-        }
+        )
         launchSingleTop = true
-        // restore screen state
-        restoreState = true
     }
 
 private fun NavHostController.navigateToSingleAccount(accountType: String) {
